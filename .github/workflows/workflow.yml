@@ -4,14 +4,13 @@ name: Sample App deploy
 
 # Controls when the workflow will run
 on:
-  push:
-      branches:
-        - main
+  workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: "<Name of your webapp>"    # set this to your application's name
-  LOAD_TEST_RESOURCE: "<Name of your load test resource>"
-  LOAD_TEST_RESOURCE_GROUP: "<Name of your load test resource group>"
+  LOAD_TEST_RESOURCE: "demo-ninallam"
+  LOAD_TEST_RESOURCE_GROUP: "demo-ninallam-rg"
+  LOAD_TEST_LOCATION: "North Europe"
+  AZURE_WEBAPP_NAME: "demo-ninallam"    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.15.1'                # set this to the node version to use
   LOCATION: "West US"
@@ -21,12 +20,9 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-deploy:
-    # The type of runner that the job will run on
+    name: Build and Deploy  
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout GitHub Actions 
         uses: actions/checkout@v2
         
@@ -36,8 +32,8 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-    # Deploy Arm template
-      - name: Deploy ARM Template
+    # Deploy ARM template
+      - name: Create Azure Web App using ARM Template
         uses: azure/powershell@v1
         continue-on-error: false
         with:
@@ -71,6 +67,13 @@ jobs:
         continue-on-error: false
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Create Azure Load Testing resource
+        uses: azure/arm-deploy@v1
+        with:
+          resourceGroupName: ${{ env.LOAD_TEST_RESOURCE_GROUP }}
+          template: ./ARMTemplates/template.json
+          parameters: ./ARMTemplates/parameters.json name=${{ env.LOAD_TEST_RESOURCE }} location="${{ env.LOAD_TEST_LOCATION }}"
         
       - name: 'Azure Load Testing'
         uses: azure/load-testing@v1
@@ -84,7 +87,14 @@ jobs:
               "name": "webapp",
               "value": "${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net"
               }
-            ]          
+            ]
+          secrets: |
+            [
+               {
+                "name": "appToken",
+                "value": "${{ secrets.MY_SECRET }}"
+               }
+            ]
       
       - uses: actions/upload-artifact@v2
         with:
