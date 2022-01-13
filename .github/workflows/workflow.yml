@@ -73,7 +73,7 @@ jobs:
         continue-on-error: false
         with:
           inlineScript: |
-            az group create --name "${{ env.LOAD_TEST_RESOURCE_GROUP }}-rg" --location "${{ env.LOAD_TEST_LOCATION }}"
+            az group create --name "${{ env.LOAD_TEST_RESOURCE_GROUP }}" --location "${{ env.LOAD_TEST_LOCATION }}"
           azPSVersion: "latest"      
           
       - name: Create Azure Load Testing resource
