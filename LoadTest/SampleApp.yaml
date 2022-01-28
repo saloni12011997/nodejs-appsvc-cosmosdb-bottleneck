@@ -4,5 +4,5 @@ testPlan: SampleApp.jmx
 description: 'SampleApp Test Run using GitHub Actions'
 engineInstances: 1
 failureCriteria:
-  - avg(response_time_ms) > 50000
+  - avg(response_time_ms) > 5000
   - percentage(error) > 20
