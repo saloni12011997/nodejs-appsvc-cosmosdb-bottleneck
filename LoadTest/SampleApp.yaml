@@ -1,6 +1,6 @@
 version: v0.1
 testName: My_CICD_Load_Test
-testPlan: SampleApp_Secrets.jmx
+testPlan: SampleApp.jmx
 description: 'SampleApp Test Run using GitHub Actions'
 engineInstances: 1
 failureCriteria:
