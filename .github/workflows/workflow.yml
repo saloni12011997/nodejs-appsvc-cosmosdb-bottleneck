@@ -15,9 +15,9 @@ env:
   AZURE_WEBAPP_NAME: "cool-sampleapp"    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.15.1'                # set this to the node version to use
-  LOCATION: "West US 2"
-  APPINSIGHTLOCATION: "West US 2"
-  DATABASEACCOUNTLOCATION: "westus2"
+  LOCATION: "East US"
+  APPINSIGHTLOCATION: "East US"
+  DATABASEACCOUNTLOCATION: "East US"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
