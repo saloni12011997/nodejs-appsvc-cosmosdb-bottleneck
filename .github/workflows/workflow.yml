@@ -17,7 +17,7 @@ env:
   NODE_VERSION: '14.15.1'                # set this to the node version to use
   LOCATION: "East US"
   APPINSIGHTLOCATION: "East US"
-  DATABASEACCOUNTLOCATION: "East US"
+  DATABASEACCOUNTLOCATION: "eastus"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
