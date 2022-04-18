@@ -9,7 +9,7 @@ on:
         - main
 
 env:
-  LOAD_TEST_RESOURCE: "malt-demo1"
+  LOAD_TEST_RESOURCE: "malt-demo3"
   LOAD_TEST_RESOURCE_GROUP: "malt-demo-rg"
   LOAD_TEST_LOCATION: "East US"
   AZURE_WEBAPP_NAME: "shonapp.azurewebsites.net"    # set this to your application's name
